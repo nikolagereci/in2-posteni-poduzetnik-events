@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${pageTitle}">Bootstrap 101 Template</title>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css"/>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css'/>
+
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/webjars/momentjs/2.24.0/min/moment-with-locales.min.js"></script>
+    <script src="/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+
+</head>
+<body>
+    <div class="text-center">
+        <h2>Događaji Poštenog Poduzetnika</h2>
+    </div>
+    <div class="container">
+        <div th:include="event/table.html">Table</div>
+        <span th:if="${edit}">
+            <div th:include="event/edit.html">Edit Event</div>
+        </span>
+    </div>
+</body>
+</html>
