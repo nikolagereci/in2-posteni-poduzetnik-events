@@ -9,6 +9,12 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+/**
+ * Entity klasa koja odgovara VELICINA_GRADA tablici
+ * @author Nikola Gereci
+ * @since 0.0.1-SNAPSHOT
+ */
+
 @Entity
 @Data
 @Table(name = "VELICINA_GRADA")
@@ -16,7 +22,7 @@ public class CitySize {
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	private int id;
+	private long id;
 	
 	@Column(name = "NAZIV")
 	private String name;

@@ -1,16 +1,17 @@
 
 package hr.in2.postenipoduzetnikevents.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+
+import java.util.List;
+
+/**
+ * Entity klasa koja odgovara GRAD tablici
+ * @author Nikola Gereci
+ * @since 0.1.0
+ */
 
 @Entity
 @Data
@@ -19,7 +20,7 @@ public class City {
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
-	private int id;
+	private long id;
 	
 	@Column(name = "NAZIV")
 	private String name;
@@ -29,6 +30,9 @@ public class City {
 	private CitySize citySize;
 	
 	@ManyToOne
-	@JoinColumn(name = "ORGANIZACIJSKA_JEDINICA_ID")
+	@JoinColumn(name = "ORG_JED_ID")
 	private OrgUnit orgUnit;
+
+	@OneToMany(mappedBy = "city")
+	List<Event> city;
 }
