@@ -1,39 +1,80 @@
-Editiram događaj: <span th:text="${event.name}"></span>
+<h3>
+    Editiranje događaja: <span th:text="${event.name}"></span>
+</h3>
+<div>
+    <form action="#" th:action="@{/update/{id}(id=${event.id})}" th:object="${event}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="name">Naziv</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{name}" id="name" placeholder="Naziv">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Početak</label>
+                </td>
+                <td>
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class='input-group date' id='dateTimeFromPicker'>
+                                    <input type='text' th:field="*{timeFrom}"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#dateTimeFromPicker').datetimepicker({
+                                locale: 'ru'
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="timeTo">Završetak</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{timeTo}" id="timeTo" placeholder="Završetak">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="free">Slobodan ulaz</label>
+                </td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input id="free" type="checkbox" class="custom-control-input" th:field="*{free}" unchecked>
+                        <label class="custom-control-label" for="free"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="city">Grad</label>
+                </td>
+                <td>
+                    <select id="city" th:field="*{city.id}" class="browser-default custom-select">
+                        <option th:each="i : ${cities}" th:value="${i.id}" th:text="${i.name}">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Ažuriraj događaj">
+                </td>
+            </tr>
+        </table>
 
-<form action="#" th:action="@{/update/{id}(id=${event.id})}" th:object="${event}" method="post">
-    <label for="name">Naziv</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Naziv">
+    </form>
+</div>
 
-    <label>Početak</label>
-    <div>
-        <div class="form-group">
-            <div class='input-group date' id='dateTimeFromPicker'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-            </div>
-        </div>
-    </div>
-    <!--<input type="text" th:field="*{timeFrom}" id="timeFrom" placeholder="Početak">-->
-
-    <label for="timeTo">Završetak</label>
-    <input type="text" th:field="*{timeTo}" id="timeTo" placeholder="Završetak">
-
-    <label for="free">Slobodan ulaz</label>
-    <input type="text" th:field="*{free}" id="free" placeholder="Slobodan ulaz">
-
-    <label for="free">Grad</label>
-    <input type="text" th:field="*{city.name}" id="city" placeholder="grad">
-
-    <input type="submit" value="Ažuriraj događaj">
-
-    <script type="text/javascript">
-        $(function () {
-            $('#dateTimeFromPicker').datetimepicker({
-                locale: 'hr'
-            });
-        });
-    </script>
-</form>
 

@@ -9,5 +9,5 @@ public interface EventService {
 	public Iterable<Event> searchEvents(SearchCriteria criteria);
 	public void createEvent( Event event );
 	public void updateEvent( Event event );
-	public void deleteEvent( Event event ); 
+	public void deleteEvent( Event event );
 }
