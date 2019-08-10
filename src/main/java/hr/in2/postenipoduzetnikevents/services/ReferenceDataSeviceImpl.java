@@ -15,4 +15,9 @@ public class ReferenceDataSeviceImpl implements ReferenceDataService {
     public Iterable<City> getCities() {
         return cityRepository.findAll();
     }
+
+    @Override
+    public City getCity(Long id) {
+        return cityRepository.findById(id).get();
+    }
 }

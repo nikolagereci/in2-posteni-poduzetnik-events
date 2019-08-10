@@ -1,11 +1,7 @@
 
 package hr.in2.postenipoduzetnikevents.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 
@@ -19,7 +15,7 @@ import lombok.Data;
 @Table(name = "TIP_ORGANIZACIJSKE_JEDINICE")
 public class OrgUnitType {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private long id;
 	

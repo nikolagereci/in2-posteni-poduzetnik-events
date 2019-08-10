@@ -3,15 +3,10 @@ package hr.in2.postenipoduzetnikevents.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Entity klasa koja odgovara DOGADJAJ tablici
@@ -24,17 +19,19 @@ import lombok.Data;
 @Table(name = "DOGADJAJI")
 public class Event {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private long id;
+	private Long id;
 	
 	@Column(name = "NAZIV")
 	private String name;
 	
 	@Column(name = "VRIJEME_OD")
+	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	private LocalDateTime timeFrom;
-	
+
 	@Column(name = "VRIJEME_DO")
+	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	private LocalDateTime timeTo;
 	
 	@Column(name = "SLOBODAN_ULAZ")
@@ -45,4 +42,8 @@ public class Event {
 	private City city;
 
 
+	public Event() {
+		this.setId(new Long(0L));
+		this.city = new City();
+	}
 }
