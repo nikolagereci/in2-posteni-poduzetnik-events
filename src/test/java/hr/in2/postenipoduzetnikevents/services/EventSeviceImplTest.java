@@ -3,7 +3,6 @@ package hr.in2.postenipoduzetnikevents.services;
 import hr.in2.postenipoduzetnikevents.model.City;
 import hr.in2.postenipoduzetnikevents.model.Event;
 import hr.in2.postenipoduzetnikevents.model.SearchCriteria;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class EventSeviceImplTest {
     EventSeviceImpl eventService;
 
     @Autowired
-    ReferenceDataService referenceDataService;
+    CityService cityService;
 
     @Test
     public void getEventByIdTest() {
@@ -72,18 +71,18 @@ public class EventSeviceImplTest {
         //Svi eventi u Splitu
         SearchCriteria criteria = new SearchCriteria();
         List<City> cities= new LinkedList<>();
-        cities.add(referenceDataService.getCity(10L));
+        cities.add(cityService.getCity(10L));
         criteria.setCities(cities);
         Iterable<Event> events = eventService.searchEvents(criteria);
         assertEquals(1, IterableUtils.size(events));
 
         //Svi eventi u Splitu i Zagrebu
-        cities.add(referenceDataService.getCity(4L));
+        cities.add(cityService.getCity(4L));
         events = eventService.searchEvents(criteria);
         assertEquals(3, IterableUtils.size(events));
 
         //Svi eventi u Splitu, Zagrebu i Dubrovniku
-        cities.add(referenceDataService.getCity(11L));
+        cities.add(cityService.getCity(11L));
         events = eventService.searchEvents(criteria);
         assertEquals(4, IterableUtils.size(events));
     }
@@ -148,7 +147,7 @@ public class EventSeviceImplTest {
         //Svi besplatni eventi u Zagrebu
         SearchCriteria criteria = new SearchCriteria();
         List<City> cities= new LinkedList<>();
-        cities.add(referenceDataService.getCity(4L));
+        cities.add(cityService.getCity(4L));
         criteria.setCities(cities);
         criteria.setFree(true);
         Iterable<Event> events = eventService.searchEvents(criteria);
@@ -170,7 +169,7 @@ public class EventSeviceImplTest {
         e.setFree(true);
         e.setTimeFrom(LocalDateTime.now());
         e.setTimeTo(LocalDateTime.now());
-        e.setCity(referenceDataService.getCity(1L));
+        e.setCity(cityService.getCity(1L));
         eventService.saveEvent(e);
         Event event = eventService.getEventById(12L);
         assertFalse(event == null);

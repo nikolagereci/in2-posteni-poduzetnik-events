@@ -14,5 +14,7 @@ public class SearchCriteria {
     private LocalDateTime endFrom;
     private LocalDateTime endTo;
     private Boolean free;
+    private List<OrgUnit> regions;
+    private List<OrgUnit> counties;
     private List<City> cities;
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EventSeviceImpl implements EventService {
 
     @Autowired
-    ReferenceDataService referenceDataService;
+    CityService cityService;
 
     @Autowired
     EventRepository eventRepository;
@@ -37,7 +37,7 @@ public class EventSeviceImpl implements EventService {
         if (event.getId().equals(0L))
             event.setId(null);
         //Set city
-        City city = referenceDataService.getCity(event.getCity().getId());
+        City city = cityService.getCity(event.getCity().getId());
         if(city == null)
             throw new IllegalArgumentException();
         else

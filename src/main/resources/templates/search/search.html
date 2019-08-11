@@ -1,0 +1,162 @@
+<h2>Pretraživanje</h2>
+<div>
+    <form action="#" th:action="@{/update}" th:object="${searchCriteria}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="name">Naziv</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{name}" id="name" placeholder="Naziv">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Početak od </label>
+                </td>
+                <td>
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='dateTimeStartFromPicker'>
+                                        <input type='text' th:field="*{startFrom}" autocomplete="off"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <label>do</label>
+                </td>
+                <td>
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='dateTimeStartToPicker'>
+                                        <input type='text' th:field="*{startTo}" autocomplete="off"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Završetak od </label>
+                </td>
+                <td>
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='dateTimeEndFromPicker'>
+                                        <input type='text' th:field="*{endFrom}" autocomplete="off"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <label>do</label>
+                </td>
+                <td>
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='dateTimeEndToPicker'>
+                                        <input type='text' th:field="*{endTo}" autocomplete="off"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="free">Slobodan ulaz</label>
+                </td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input id="free" type="checkbox" class="custom-control-input" th:field="*{free}" unchecked>
+                        <label class="custom-control-label" for="free"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Regije</label>
+                </td>
+                <td>
+                    <select th:field="*{regions}" class="selectpicker" multiple>
+                        <option value="" disabled selected>Odaberite regije</option>
+                        <option th:each="i : ${regions}" th:value="${i.id}" th:text="${i.name}">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Županije</label>
+                </td>
+                <td>
+                    <select th:field="*{counties}" class="selectpicker" multiple>
+                        <option value="" disabled selected>Odaberite županije</option>
+                        <option th:each="i : ${counties}" th:value="${i.id}" th:text="${i.name}">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Gradovi</label>
+                </td>
+                <td>
+                    <select th:field="*{cities}" class="selectpicker" multiple>
+                        <option value="" disabled selected>Odaberite grad(ove)</option>
+                        <option th:each="i : ${cities}" th:value="${i.id}" th:text="${i.name}">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Pretraži">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateTimeStartFromPicker').datetimepicker({
+            format: 'dd.mm.yyyy hh:ii'
+        });
+        $('#dateTimeStartToPicker').datetimepicker({
+            format: 'dd.mm.yyyy hh:ii'
+        });
+        $('#dateTimeEndFromPicker').datetimepicker({
+            format: 'dd.mm.yyyy hh:ii'
+        });
+        $('#dateTimeEndToPicker').datetimepicker({
+            format: 'dd.mm.yyyy hh:ii'
+        });
+    });
+</script>
