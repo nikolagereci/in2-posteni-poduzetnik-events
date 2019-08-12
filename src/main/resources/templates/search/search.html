@@ -1,6 +1,6 @@
 <h2>Pretraživanje</h2>
 <div>
-    <form action="#" th:action="@{/update}" th:object="${searchCriteria}" method="post">
+    <form id="searchForm" action="#" th:action="@{/update}" th:object="${searchCriteria}" method="post">
         <table>
             <tr>
                 <td>
@@ -106,7 +106,7 @@
                     <label>Regije</label>
                 </td>
                 <td>
-                    <select th:field="*{regions}" class="selectpicker" multiple>
+                    <select th:field="*{regions}" class="selectpicker" multiple id="regionPicker">
                         <option value="" disabled selected>Odaberite regije</option>
                         <option th:each="i : ${regions}" th:value="${i.id}" th:text="${i.name}">
                     </select>
@@ -117,9 +117,9 @@
                     <label>Županije</label>
                 </td>
                 <td>
-                    <select th:field="*{counties}" class="selectpicker" multiple>
+                    <select th:field="*{counties}" class="selectpicker" multiple id="countyPicker">
                         <option value="" disabled selected>Odaberite županije</option>
-                        <option th:each="i : ${counties}" th:value="${i.id}" th:text="${i.name}">
+                        <option class="countyoption" th:each="i : ${counties}" th:value="${i.id}" th:text="${i.name}">
                     </select>
                 </td>
             </tr>
@@ -128,9 +128,9 @@
                     <label>Gradovi</label>
                 </td>
                 <td>
-                    <select th:field="*{cities}" class="selectpicker" multiple>
+                    <select th:field="*{cities}" class="selectpicker" multiple  id="cityPicker">
                         <option value="" disabled selected>Odaberite grad(ove)</option>
-                        <option th:each="i : ${cities}" th:value="${i.id}" th:text="${i.name}">
+                        <option class="cityoption" th:each="i : ${cities}" th:value="${i.id}" th:text="${i.name}"/>
                     </select>
                 </td>
             </tr>
@@ -145,7 +145,25 @@
 </div>
 
 <script type="text/javascript">
+
+    //Date time pickers
     $(function () {
+        $('.selectpicker').selectpicker();
+
+        $('#regionPicker').on('hide.bs.select', function(e){
+            $.post( "/search/selector", $( "#searchForm" ).serialize(), function( data ) {
+              $('.cityoption').remove();
+              $.each(data, function(index, value) {
+                $('#cityPicker').append('<option class="cityoption" value="' + value.id + '">' + value.label + '</option>');
+              });
+              $('.selectpicker').selectpicker('refresh');
+            } );
+        });
+
+        $('#countyPicker').on('hide.bs.select', function(e){
+            alert('promjena zupanije!')
+        });
+
         $('#dateTimeStartFromPicker').datetimepicker({
             format: 'dd.mm.yyyy hh:ii'
         });

@@ -20,7 +20,7 @@ public class OrgUnit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private long id;
-	
+
 	@Column(name = "NAZIV")
 	private String name;
 	

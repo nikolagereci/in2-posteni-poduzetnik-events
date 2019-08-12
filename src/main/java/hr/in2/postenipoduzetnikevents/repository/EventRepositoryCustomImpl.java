@@ -3,6 +3,7 @@ package hr.in2.postenipoduzetnikevents.repository;
 import hr.in2.postenipoduzetnikevents.model.City;
 import hr.in2.postenipoduzetnikevents.model.Event;
 import hr.in2.postenipoduzetnikevents.model.SearchCriteria;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -51,7 +52,7 @@ public class EventRepositoryCustomImpl implements EventRepositoryCustom {
         }
 
         List<Predicate> cityPredicates = new ArrayList<>();
-        if (criteria.getCities() != null && !criteria.getCities().isEmpty()){
+        if (criteria.getCities() != null && !IterableUtils.isEmpty(criteria.getCities())){
             Path<City> cityPath = event.get("city");
             criteria.getCities().forEach(city -> cityPredicates.add(criteriaBuilder.equal(cityPath, city)));
         }

@@ -16,5 +16,6 @@ public class SearchCriteria {
     private Boolean free;
     private List<OrgUnit> regions;
     private List<OrgUnit> counties;
+    private CitySize citySize;
     private List<City> cities;
 }

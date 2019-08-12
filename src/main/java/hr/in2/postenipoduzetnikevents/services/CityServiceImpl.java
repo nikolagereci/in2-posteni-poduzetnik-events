@@ -1,6 +1,7 @@
 package hr.in2.postenipoduzetnikevents.services;
 
 import hr.in2.postenipoduzetnikevents.model.City;
+import hr.in2.postenipoduzetnikevents.model.CitySize;
 import hr.in2.postenipoduzetnikevents.model.OrgUnit;
 import hr.in2.postenipoduzetnikevents.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class CityServiceImpl implements CityService {
     @Override
     public Iterable<City> getCitiesByCounties(List<OrgUnit> counties) {
         return cityRepository.findByOrgUnitIn(counties);
+    }
+
+    @Override
+    public Iterable<City> searchCities(List<OrgUnit> regions, List<OrgUnit> counties, CitySize citySize) {
+        return cityRepository.searchCities(regions, counties, citySize);
     }
 }
