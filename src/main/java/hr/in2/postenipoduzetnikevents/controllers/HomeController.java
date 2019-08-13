@@ -1,6 +1,11 @@
 package hr.in2.postenipoduzetnikevents.controllers;
 
-import hr.in2.postenipoduzetnikevents.model.*;
+import hr.in2.postenipoduzetnikevents.model.City;
+import hr.in2.postenipoduzetnikevents.model.CitySize;
+import hr.in2.postenipoduzetnikevents.model.Event;
+import hr.in2.postenipoduzetnikevents.model.OrgUnit;
+import hr.in2.postenipoduzetnikevents.model.view.SearchCriteria;
+import hr.in2.postenipoduzetnikevents.model.view.SelectData;
 import hr.in2.postenipoduzetnikevents.services.CityService;
 import hr.in2.postenipoduzetnikevents.services.EventService;
 import hr.in2.postenipoduzetnikevents.services.OrgUnitService;
@@ -11,9 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -29,8 +32,8 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
-        Iterable<Event> events = eventService.getAllEvents();
-        model.addAttribute("events", events);
+//        Iterable<Event> events = eventService.getAllEvents();
+//        model.addAttribute("events", events);
         return "index";
     }
 
@@ -65,19 +68,37 @@ public class HomeController {
         Iterable<OrgUnit> regions = orgUnitService.getAllRegions();
         Iterable<OrgUnit> counties = orgUnitService.getAllCounties();
         Iterable<City> cities = cityService.getAllCities();
+        Iterable<CitySize> citySizes = cityService.getAllCitySizes();
+
         model.addAttribute("search", true);
         model.addAttribute("searchCriteria", new SearchCriteria());
         model.addAttribute("cities", cities);
         model.addAttribute("regions", regions);
         model.addAttribute("counties", counties);
+        model.addAttribute("citySizes", citySizes);
         home(model);
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String searchPost(SearchCriteria criteria, Model model) {
+        //Ako nije odabran nijedan grad, nađi sve gradove koji odgovaraju kriterijima
+        if (criteria.getCities() == null || criteria.getCities().size() == 0)
+            criteria.setCities (IterableUtils.toList(cityService.searchCities(criteria.getRegions(), criteria.getCounties(), criteria.getCitySizes())));
+
+        //Pretraživanje
+        Iterable<Event> events = eventService.searchEvents(criteria);
+
+        model.addAttribute("events", events);
+//        searchEvent(model);
+//        model.addAttribute("searchCriteria", criteria);
         return "index";
     }
 
     @PostMapping(value = "/search/selector" , produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public List<SelectData>  postSearchEvent(SearchCriteria criteria){
-        List<List<SelectData>> returnList = new ArrayList<>();
+    public Map<String, List<SelectData>> postSearchEvent(SearchCriteria criteria){
+        Map<String,List<SelectData>> returnMap = new HashMap<>();
         List<OrgUnit> counties;
         List<City> cities;
         if (!criteria.getRegions().isEmpty()) {
@@ -85,12 +106,12 @@ public class HomeController {
         }else {
             counties = IterableUtils.toList(orgUnitService.getAllCounties());
         }
-        cities = IterableUtils.toList(cityService.searchCities(criteria.getRegions(), criteria.getCounties(), criteria.getCitySize()));
+        cities = IterableUtils.toList(cityService.searchCities(criteria.getRegions(), criteria.getCounties(), criteria.getCitySizes()));
         List<SelectData> countiesSelect = SelectData.objectListToSelectDataList(Collections.singletonList(counties));
-        returnList.add(countiesSelect);
+        returnMap.put("counties", countiesSelect);
         List<SelectData> citiesSelect = SelectData.objectListToSelectDataList(Collections.singletonList(cities));
-        returnList.add(citiesSelect);
-        return citiesSelect;
+        returnMap.put("cities", citiesSelect);
+        return returnMap;
     }
 
     @PostMapping("/update/{id}")

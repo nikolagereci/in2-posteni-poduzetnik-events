@@ -9,7 +9,8 @@ import java.util.List;
 public interface CityService {
     City getCity(Long id);
     Iterable<City> getAllCities();
+    Iterable<CitySize> getAllCitySizes();
     Iterable<City> getCitiesByRegions(List<OrgUnit> regions);
     Iterable<City> getCitiesByCounties(List<OrgUnit> counties);
-    Iterable<City> searchCities (List<OrgUnit> regions, List<OrgUnit> counties, CitySize citySize);
+    Iterable<City> searchCities (List<OrgUnit> regions, List<OrgUnit> counties, List<CitySize> citySizes);
 }

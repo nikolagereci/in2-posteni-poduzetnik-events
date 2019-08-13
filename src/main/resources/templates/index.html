@@ -6,19 +6,20 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
     <title th:text="${pageTitle}">Bootstrap 101 Template</title>
 
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="stylesheet" href="/webjars/bootstrap-select/1.13.8/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-select/1.13.8/css/bootstrap-select.min.css}"/>
 
-    <script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="/webjars/momentjs/2.24.0/min/moment-with-locales.min.js"></script>
-    <script src="/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/webjars/bootstrap-select/1.13.8/js/bootstrap-select.min.js"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/momentjs/2.24.0/min/moment-with-locales.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap-select/1.13.8/js/bootstrap-select.min.js}"></script>
 </head>
 <body>
     <div class="text-center">
@@ -27,11 +28,11 @@
     <div class="container">
         <div th:include="event/table.html">Table</div>
         <p>
-            <a class="btn btn-info" href="/edit/0">
+            <a class="btn btn-info" th:href="@{/edit/0}">
                 <svg height="32" class="octicon octicon-plus" viewBox="0 0 12 16" version="1.1" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5v2z"></path></svg>
                 Unos novog događaja
             </a>
-            <a class="btn btn-info" href="/search">
+            <a class="btn btn-info" th:href="@{/search}">
                 <svg height="32" class="octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></svg>
                 Pretraživanje
             </a>

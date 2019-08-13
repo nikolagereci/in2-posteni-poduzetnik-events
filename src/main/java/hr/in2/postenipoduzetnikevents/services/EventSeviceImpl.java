@@ -2,7 +2,7 @@ package hr.in2.postenipoduzetnikevents.services;
 
 import hr.in2.postenipoduzetnikevents.model.City;
 import hr.in2.postenipoduzetnikevents.model.Event;
-import hr.in2.postenipoduzetnikevents.model.SearchCriteria;
+import hr.in2.postenipoduzetnikevents.model.view.SearchCriteria;
 import hr.in2.postenipoduzetnikevents.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

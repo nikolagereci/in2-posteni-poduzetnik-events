@@ -1,6 +1,6 @@
 <h2>Pretraživanje</h2>
 <div>
-    <form id="searchForm" action="#" th:action="@{/update}" th:object="${searchCriteria}" method="post">
+    <form id="searchForm" action="#" th:action="@{/search}" th:object="${searchCriteria}" method="post">
         <table>
             <tr>
                 <td>
@@ -125,6 +125,17 @@
             </tr>
             <tr>
                 <td>
+                    <label>Veličina grada</label>
+                </td>
+                <td>
+                    <select th:field="*{citySizes}" class="selectpicker" multiple id="citySizePicker">
+                        <option value="" disabled selected>Odaberite veličine gradova</option>
+                        <option th:each="i : ${citySizes}" th:value="${i.id}" th:text="${i.name}">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label>Gradovi</label>
                 </td>
                 <td>
@@ -151,17 +162,41 @@
         $('.selectpicker').selectpicker();
 
         $('#regionPicker').on('hide.bs.select', function(e){
-            $.post( "/search/selector", $( "#searchForm" ).serialize(), function( data ) {
+            $.post( "[[@{/search/selector}]]", $( "#searchForm" ).serialize(), function( data ) {
               $('.cityoption').remove();
-              $.each(data, function(index, value) {
-                $('#cityPicker').append('<option class="cityoption" value="' + value.id + '">' + value.label + '</option>');
+              $.each(data.cities, function(index, value) {
+                $('#cityPicker').append('<option class="cityoption" value="' + value.value + '">' + value.label + '</option>');
               });
+
+              $('.countyoption').remove();
+              $.each(data.counties, function(index, value) {
+                $('#countyPicker').append('<option class="countyoption" value="' + value.value + '">' + value.label + '</option>');
+              });
+
               $('.selectpicker').selectpicker('refresh');
             } );
         });
 
         $('#countyPicker').on('hide.bs.select', function(e){
-            alert('promjena zupanije!')
+            $.post( "[[@{/search/selector}]]", $( "#searchForm" ).serialize(), function( data ) {
+              $('.cityoption').remove();
+              $.each(data.cities, function(index, value) {
+                $('#cityPicker').append('<option class="cityoption" value="' + value.value + '">' + value.label + '</option>');
+              });
+
+              $('.selectpicker').selectpicker('refresh');
+            } );
+        });
+
+        $('#citySizePicker').on('hide.bs.select', function(e){
+            $.post( "[[@{/search/selector}]]", $( "#searchForm" ).serialize(), function( data ) {
+              $('.cityoption').remove();
+              $.each(data.cities, function(index, value) {
+                $('#cityPicker').append('<option class="cityoption" value="' + value.value + '">' + value.label + '</option>');
+              });
+
+              $('.selectpicker').selectpicker('refresh');
+            } );
         });
 
         $('#dateTimeStartFromPicker').datetimepicker({

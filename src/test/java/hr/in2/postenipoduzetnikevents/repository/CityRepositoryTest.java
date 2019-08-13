@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -93,7 +94,9 @@ public class CityRepositoryTest {
 
         //Vrati sve velike gradove iz regija Centralna Hrvatska i regije Sjeverna Hrvatska obala
         CitySize veliki = citySizeRepository.findById(3L).get();
-        Iterable<City> velikiGradoviCentralnaSjevernaObala = cityRepository.searchCities(criteria, null, veliki);
+        List<CitySize> velicine = new ArrayList<>();
+        velicine.add(veliki);
+        Iterable<City> velikiGradoviCentralnaSjevernaObala = cityRepository.searchCities(criteria, null, velicine);
         assertEquals(1, IterableUtils.size(velikiGradoviCentralnaSjevernaObala));
     }
 }

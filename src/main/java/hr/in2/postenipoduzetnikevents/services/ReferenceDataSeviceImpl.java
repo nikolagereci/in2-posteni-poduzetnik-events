@@ -1,9 +1,7 @@
 package hr.in2.postenipoduzetnikevents.services;
 
-import hr.in2.postenipoduzetnikevents.model.City;
 import hr.in2.postenipoduzetnikevents.model.OrgUnitType;
 import hr.in2.postenipoduzetnikevents.repository.CityRepository;
-import hr.in2.postenipoduzetnikevents.repository.OrgUnitRepository;
 import hr.in2.postenipoduzetnikevents.repository.OrgUnitTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

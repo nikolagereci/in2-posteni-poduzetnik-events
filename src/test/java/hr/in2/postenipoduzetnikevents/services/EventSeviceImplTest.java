@@ -2,7 +2,7 @@ package hr.in2.postenipoduzetnikevents.services;
 
 import hr.in2.postenipoduzetnikevents.model.City;
 import hr.in2.postenipoduzetnikevents.model.Event;
-import hr.in2.postenipoduzetnikevents.model.SearchCriteria;
+import hr.in2.postenipoduzetnikevents.model.view.SearchCriteria;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.Test;
